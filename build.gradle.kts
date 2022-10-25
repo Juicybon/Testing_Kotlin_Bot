@@ -27,6 +27,7 @@ dependencies {
     implementation("com.just-ai.jaicf:jaicp:$jaicf")
     implementation("com.just-ai.jaicf:caila:$jaicf")
     implementation("com.just-ai.jaicf:telegram:$jaicf")
+    implementation("mysql:mysql-connector-java:8.0.31")
 }
 
 tasks.test {
