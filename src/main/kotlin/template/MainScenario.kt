@@ -2,28 +2,46 @@ package template
 
 import com.justai.jaicf.activator.caila.caila
 import com.justai.jaicf.builder.Scenario
+import com.justai.jaicf.reactions.buttons
+import com.justai.jaicf.reactions.toState
 
 val mainScenario = Scenario {
     state("start") {
         activators {
             regex("/start")
-            intent("Hello")
         }
         action {
             reactions.run {
-                image("https://media.giphy.com/media/ICOgUNjpvO0PC/source.gif")
-                sayRandom(
-                    "Hello! How can I help?",
-                    "Hi there! How can I help you?"
+                say(
+                    "Привет! Это тестирование на уровень знания " +
+                            "языка программирования Kotlin. Начнем?"
                 )
                 buttons(
-                    "Help me!",
-                    "How are you?",
-                    "What is your name?"
+                    "Да!" toState "Да!",
+                    "Нет, надо подготовиться" toState "Нет"
                 )
             }
         }
+        state("Да!") {
+            action {
+                reactions.run {
+                    say(
+                        "COOL!"
+                    )
+                }
+            }
+        }
+        state("Нет") {
+            action {
+                reactions.run {
+                    say(
+                        "BAD("
+                    )
+                }
+            }
+        }
     }
+
     state("bye") {
         activators {
             intent("Bye")
@@ -35,16 +53,6 @@ val mainScenario = Scenario {
                 "Bye-bye!"
             )
             reactions.image("https://media.giphy.com/media/EE185t7OeMbTy/source.gif")
-        }
-    }
-
-    state("smalltalk", noContext = true) {
-        activators {
-            anyIntent()
-        }
-
-        action(caila) {
-            activator.topIntent.answer?.let { reactions.say(it) } ?: reactions.go("/fallback")
         }
     }
 
