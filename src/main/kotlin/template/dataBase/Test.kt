@@ -1,5 +1,5 @@
 package template.dataBase
 
 fun main(){
-    Test.connection()
+    print(GetQuestion(GetTasks(1)))
 }
