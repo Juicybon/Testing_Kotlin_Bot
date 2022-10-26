@@ -1,11 +1,11 @@
 package template
 
-import com.justai.jaicf.activator.caila.caila
 import com.justai.jaicf.builder.Scenario
 import com.justai.jaicf.reactions.buttons
 import com.justai.jaicf.reactions.toState
 
 val mainScenario = Scenario {
+    append(testScenario)
     state("start") {
         activators {
             regex("/start")
@@ -17,42 +17,29 @@ val mainScenario = Scenario {
                             "языка программирования Kotlin. Начнем?"
                 )
                 buttons(
-                    "Да!" toState "Да!",
-                    "Нет, надо подготовиться" toState "Нет"
+                    "Да!" toState "Yes",
+                    "Нет, надо подготовиться" toState "Bye"
                 )
             }
         }
-        state("Да!") {
+        state("Yes") {
             action {
                 reactions.run {
                     say(
-                        "COOL!"
+                        "Для выбора варианта ответа пиши его число в бот"
                     )
+                    go("../../test")
                 }
             }
         }
-        state("Нет") {
+        state("Bye") {
             action {
                 reactions.run {
                     say(
-                        "BAD("
+                        "До скорых встреч!"
                     )
                 }
             }
-        }
-    }
-
-    state("bye") {
-        activators {
-            intent("Bye")
-        }
-
-        action {
-            reactions.sayRandom(
-                "See you soon!",
-                "Bye-bye!"
-            )
-            reactions.image("https://media.giphy.com/media/EE185t7OeMbTy/source.gif")
         }
     }
 
