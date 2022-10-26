@@ -25,7 +25,7 @@ val testScenario = Scenario {
                         say("Твой результат " + points.toString() + " из 20")
                         go("../start/Bye")
                     }
-                    say(template.dataBase.GetQuestion(GetTasks(numberQuestion)))
+                    say(numberQuestion.toString() + ". " + template.dataBase.GetQuestion(GetTasks(numberQuestion)))
                     var buttonsCount = 0
                     while(buttonsCount < template.dataBase.GetVarCount(GetTasks(numberQuestion)))
                     {
